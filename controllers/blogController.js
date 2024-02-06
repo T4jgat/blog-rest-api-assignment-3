@@ -18,6 +18,7 @@ class BlogController {
             const postToSave = await post.save()
             res.status(200).json(postToSave)
         } catch (err) {
+            console.error(err.title)
             res.status(400).json({message: err.message})
         }
     }
@@ -28,7 +29,7 @@ class BlogController {
             const post = await Post.findById(id)
             res.json(post).status(200)
         } catch (err) {
-            console.log(err.status + " STATUS OF ERROR IN RETRIEVE BY ID ---------------------")
+            console.error(err.title)
             res.status(400).json({message: err.message})
         }
     }
@@ -41,6 +42,7 @@ class BlogController {
             const post = await Post.findByIdAndUpdate(id, updatedData, options)
             res.send(post)
         } catch (err) {
+            console.error(err.title)
             res.status(400).json({message: err.message})
         }
     }
@@ -50,10 +52,10 @@ class BlogController {
             const {id} = req.params
             const postToDelete = await Post.findByIdAndDelete(id)
             res.send(`Post "${postToDelete.title}" has been deleted...`)
-        } catch (error) {
-            res.status(400).json({message: error.message})
+        } catch (err) {
+            console.error(err.title)
+            res.status(400).json({message: err.message})
         }
-
     }
 }
 
