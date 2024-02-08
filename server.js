@@ -7,8 +7,12 @@ await DB.connectDB()
 const app = new express()
 const PORT = process.env.PORT
 
+const corsOptions = ({
+  origin: ["http://localhost:3001", "http://localhost:3000"],
+})
+
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use("/blogs", blogRouter)
 
