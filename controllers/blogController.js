@@ -22,8 +22,8 @@ class BlogController {
             res.status(200).json(postToSave)
             console.log("POST - /blogs")
         } catch (err) {
-            console.error(err.title)
-            res.status(400).json({message: err.message})
+            console.error(err)
+            res.status(400).json({message: err})
         }
     }
 
@@ -41,13 +41,13 @@ class BlogController {
     updatePost = async (req, res) => {
         const {id} = req.params
         const updatedData = req.body
-        const options = {new: true}
+        const options = {new: true, runValidators: true}
         try {
             const post = await Post.findByIdAndUpdate(id, updatedData, options)
             res.send(post)
         } catch (err) {
             console.error(err.title)
-            res.status(400).json({message: err.message})
+            res.status(400).json({message: err})
         }
     }
 
